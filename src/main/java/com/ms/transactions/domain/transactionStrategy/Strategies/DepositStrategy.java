@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 public class DepositStrategy implements TransactionTypeStrategy {
 
     private final RestTemplate restTemplate;
-    private final String WALLET_URL = "http://localhost:8081/users/{userId}/wallets";
+    private final String WALLET_URL = "http://localhost:9081/users/{userId}/wallet/deposit";
 
     public DepositStrategy() {
         this.restTemplate = new RestTemplate();
@@ -24,7 +24,7 @@ public class DepositStrategy implements TransactionTypeStrategy {
 
         restTemplate.put(WALLET_URL,
                 new WalletBalanceDTO(transaction.getAmount()),
-                transaction.getIdUser());
+                transaction.getUserId());
 
     }
 }

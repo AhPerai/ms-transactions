@@ -8,7 +8,8 @@ import org.springframework.web.client.RestTemplate;
 public class WithdrawStrategy implements TransactionTypeStrategy {
 
     private final RestTemplate restTemplate;
-    private final String WALLET_URL = "http://localhost:8081/users/{userId}/wallets";
+    private final String WALLET_URL = "http://localhost:9081/users/{userId}/wallet";
+    private final String WALLET_URL_WITHDRAW = "http://localhost:9081/users/{userId}/wallet/withdraw";
 
     public WithdrawStrategy() {
         restTemplate = new RestTemplate();
@@ -20,7 +21,7 @@ public class WithdrawStrategy implements TransactionTypeStrategy {
             throw new IllegalArgumentException("The withdrawal amount must be positive");
         }
 
-        WalletDTO wallet = restTemplate.getForObject(WALLET_URL, WalletDTO.class, transaction.getIdUser());
+        WalletDTO wallet = restTemplate.getForObject(WALLET_URL, WalletDTO.class, transaction.getUserId());
         if (wallet.getBalance() < transaction.getAmount()) {
             throw new IllegalArgumentException("The withdrawal amount must be greater than " +
                     "or equal to the current amount on the user's wallet");
@@ -29,9 +30,9 @@ public class WithdrawStrategy implements TransactionTypeStrategy {
 
     @Override
     public void execute(Transaction transaction) {
-        restTemplate.put(WALLET_URL,
+        restTemplate.put(WALLET_URL_WITHDRAW,
                 new WalletBalanceDTO(transaction.getAmount()),
-                transaction.getIdUser());
+                transaction.getUserId());
     }
 
 }

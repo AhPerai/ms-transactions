@@ -24,8 +24,8 @@ public class TransactionModel {
     private TransactionType type;
 
     private LocalDateTime dateTime;
-    private Long idBet;
+    private Long betId;
 
     @Column(nullable = false)
-    private Long idUser;
+    private Long userId;
 }
