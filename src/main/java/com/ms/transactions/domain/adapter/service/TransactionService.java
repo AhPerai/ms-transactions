@@ -3,8 +3,8 @@ package com.ms.transactions.domain.adapter.service;
 import com.ms.transactions.domain.model.Transaction;
 import com.ms.transactions.domain.port.repository.TransactionRepositoryPort;
 import com.ms.transactions.domain.port.service.TransactionServicePort;
-import com.ms.transactions.domain.transactionStrategy.TransactionTypeStrategy;
-import com.ms.transactions.domain.transactionStrategy.TransactionValidatorFactory;
+import com.ms.transactions.domain.transactionStrategy.Strategies.TransactionTypeStrategy;
+import com.ms.transactions.domain.transactionStrategy.TransactionStrategyFactory;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Objects;
 
@@ -20,8 +20,7 @@ public class TransactionService implements TransactionServicePort {
     public Transaction addTransaction(Transaction transaction) {
         TransactionTypeStrategy transactionType = this.getTransactionTypeStrategy(transaction);
         transactionType.validate(transaction);
-
-        //TODO: provavelmente haverão regras de negócio atrelada a carteira do usuário à serem implementadas
+        transactionType.execute(transaction);
         return transactionRepository.save(transaction);
     }
 
@@ -33,7 +32,7 @@ public class TransactionService implements TransactionServicePort {
 
 
     private TransactionTypeStrategy getTransactionTypeStrategy(Transaction transaction) {
-        TransactionTypeStrategy strategy = TransactionValidatorFactory.getTransactionValidator(transaction.getType());
+        TransactionTypeStrategy strategy = TransactionStrategyFactory.getTransactionValidator(transaction.getType());
 
         if (Objects.isNull(strategy)) {
             throw new IllegalArgumentException("The transaction type is not supported");

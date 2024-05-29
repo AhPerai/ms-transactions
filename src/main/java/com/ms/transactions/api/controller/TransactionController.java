@@ -9,8 +9,10 @@ import com.ms.transactions.infra.adapter.repository.TransactionRepositoryAccess;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/transactions")
 public class TransactionController {
     private final TransactionServicePort transactionService;
     private final TransactionRepositoryAccess transactionRepository;
@@ -26,7 +28,11 @@ public class TransactionController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionDTO addTransaction(@RequestBody TransactionInputDTO transactionInputDTO) {
-        var transaction  = mapper.transform(transactionInputDTO, Transaction.class);
+        Transaction transaction = new Transaction(null,
+                transactionInputDTO.amount(),transactionInputDTO.transactionType(),
+                LocalDateTime.now(), transactionInputDTO.betId(), transactionInputDTO.userId());
+
+//        var transaction  = mapper.transform(transactionInputDTO, Transaction.class);
         transaction = transactionService.addTransaction(transaction);
         return mapper.transform(transaction, TransactionDTO.class);
     }
