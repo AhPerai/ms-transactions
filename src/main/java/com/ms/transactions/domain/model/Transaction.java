@@ -10,16 +10,18 @@ public class Transaction {
     private double amount;
     private TransactionType type;
     private LocalDateTime dateTime;
-    private Long idBet; 
+    private Long idBet;
+    private Long idUser;
 
     public Transaction () {}
 
-    public Transaction(Long id, double amount, TransactionType type, LocalDateTime dateTime, Long idBet) {
+    public Transaction(Long id, double amount, TransactionType type, LocalDateTime dateTime, Long idBet, Long idUser) {
         this.id = id;
         this.amount = amount;
         this.type = type;
         this.dateTime = dateTime;
         this.idBet = idBet;
+        this.idUser = idUser;
     }
 
     public Long getId() {
@@ -60,5 +62,13 @@ public class Transaction {
 
     public void setIdBet(Long idBet) {
         this.idBet = idBet;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }

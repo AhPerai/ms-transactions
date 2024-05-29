@@ -25,4 +25,7 @@ public class TransactionModel {
 
     private LocalDateTime dateTime;
     private Long idBet;
+
+    @Column(nullable = false)
+    private Long idUser;
 }
