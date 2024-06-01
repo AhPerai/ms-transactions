@@ -7,10 +7,10 @@ public class TransactionStrategyFactory {
 
     public static TransactionTypeStrategy getTransactionValidator(TransactionType type) {
         switch (type) {
-            case DEPOSIT -> { return new DepositStrategy(); }
-            case WITHDRAWAL -> {return new WithdrawStrategy();}
-            case BET_PLACEMENT -> {return new BetPlacementStrategy();}
-            case BET_WINNINGS -> {return new BetWinningsStrategy();}
+            case DEPOSIT -> new DepositStrategy();
+            case WITHDRAWAL -> new WithdrawStrategy();
+            case BET_PLACEMENT -> new BetPlacementStrategy();
+            case BET_WINNINGS -> new BetWinningsStrategy();
         }
         return null;
     }
