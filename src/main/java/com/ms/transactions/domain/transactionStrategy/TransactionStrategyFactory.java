@@ -1,5 +1,6 @@
 package com.ms.transactions.domain.transactionStrategy;
 
+import com.ms.transactions.domain.adapter.service.BetApi;
 import com.ms.transactions.domain.adapter.service.WalletApi;
 import com.ms.transactions.domain.enums.TransactionType;
 import com.ms.transactions.domain.transactionStrategy.Strategies.*;
@@ -18,7 +19,7 @@ public class TransactionStrategyFactory {
                 return new WithdrawStrategy(new WalletApi());
             }
             case BET_PLACEMENT -> {
-                return new BetPlacementStrategy();
+                return new BetPlacementStrategy(new WalletApi(), new BetApi());
             }
             case BET_WINNINGS -> {
                 return new BetWinningsStrategy();

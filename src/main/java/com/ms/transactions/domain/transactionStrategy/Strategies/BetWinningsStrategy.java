@@ -11,6 +11,11 @@ public class BetWinningsStrategy implements TransactionTypeStrategy {
         return true;
     }
 
+    @Override
+    public void makeExchange(Transaction transaction) {
+
+    }
+
     public void execute(Transaction transaction) {
 
     }

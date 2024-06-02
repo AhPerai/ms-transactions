@@ -22,7 +22,16 @@ public class DepositStrategy implements TransactionTypeStrategy {
     }
 
     @Override
-    public void execute(Transaction transaction) {
+    public void makeExchange(Transaction transaction) {
         walletApi.depositOnWallet(transaction);
+    }
+
+
+    @Override
+    public void execute(Transaction transaction) {
+        if(!validate(transaction))
+            throw new IllegalArgumentException("The withdrawal could not be validated");
+
+        makeExchange(transaction);
     }
 }

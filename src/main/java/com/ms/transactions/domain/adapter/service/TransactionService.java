@@ -22,9 +22,6 @@ public class TransactionService implements TransactionServicePort {
     public Transaction addTransaction(Transaction transaction) {
         TransactionTypeStrategy transactionType = this.getTransactionTypeStrategy(transaction);
 
-        if(!transactionType.validate(transaction))
-            throw new IllegalArgumentException("We couldn't validate the transaction");
-
         transactionType.execute(transaction);
         transaction.setDateTime(LocalDateTime.now());
         return transactionRepository.save(transaction);

@@ -37,4 +37,10 @@ public class TransactionController {
     public  TransactionDTO findById(@PathVariable Long transactionId){
         return mapper.transform(transactionService.findTransactionById(transactionId), TransactionDTO.class);
     }
+
+    @GetMapping("/validate")
+    public boolean validateTransaction(TransactionInputDTO transactionInputDTO){
+        Transaction transaction = mapper.transform(transactionInputDTO, Transaction.class);
+        return transactionService.validateTransaction(transaction);
+    }
 }

@@ -1,6 +1,5 @@
 package com.ms.transactions.domain.adapter.service;
 
-import com.ms.transactions.api.dto.transaction.output.TransactionDTO;
 import com.ms.transactions.api.dto.wallet.input.WalletDTO;
 import com.ms.transactions.api.dto.wallet.output.WalletBalanceDTO;
 import com.ms.transactions.domain.model.Transaction;
