@@ -9,5 +9,7 @@ public interface TransactionServicePort {
 
     Transaction addTransaction(Transaction transaction);
 
-    Transaction findTransactionById(Long id);;
+    Transaction findTransactionById(Long id);
+
+    boolean validateTransaction(Transaction transaction);
 }
