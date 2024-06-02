@@ -39,7 +39,7 @@ public class TransactionController {
     }
 
     @GetMapping("/validate")
-    public boolean validateTransaction(TransactionInputDTO transactionInputDTO){
+    public boolean validateTransaction(@RequestBody TransactionInputDTO transactionInputDTO){
         Transaction transaction = mapper.transform(transactionInputDTO, Transaction.class);
         return transactionService.validateTransaction(transaction);
     }

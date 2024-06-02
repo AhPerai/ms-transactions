@@ -8,7 +8,7 @@ public class BetApi extends BaseRestClient implements BetApiPort {
 
     @Override
     protected void setBaseUrl() {
-        BASE_URL = "http://localhost:8081/bets";
+        BASE_URL = "http://localhost:8082/bets";
     }
 
     @Override

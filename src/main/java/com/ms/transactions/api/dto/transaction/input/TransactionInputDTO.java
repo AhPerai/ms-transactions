@@ -11,5 +11,5 @@ public class TransactionInputDTO{
     @Positive double amount;
     @NotNull TransactionType transactionType;
     @NotNull Long userId;
-    @NotNull Long betId;
+    Long betId;
 }
