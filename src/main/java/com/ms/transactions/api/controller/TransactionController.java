@@ -28,11 +28,7 @@ public class TransactionController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionDTO addTransaction(@RequestBody TransactionInputDTO transactionInputDTO) {
-        Transaction transaction = new Transaction(null,
-                transactionInputDTO.amount(),transactionInputDTO.transactionType(),
-                LocalDateTime.now(), transactionInputDTO.betId(), transactionInputDTO.userId());
-
-//        var transaction  = mapper.transform(transactionInputDTO, Transaction.class);
+        var transaction  = mapper.transform(transactionInputDTO, Transaction.class);
         transaction = transactionService.addTransaction(transaction);
         return mapper.transform(transaction, TransactionDTO.class);
     }
