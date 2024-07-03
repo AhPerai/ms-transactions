@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/transactions")
@@ -56,5 +57,15 @@ public class TransactionController {
             @Parameter(description = "Id of the transaction to be retrieved", required = true)
             @PathVariable Long transactionId){
         return mapper.transform(transactionService.findTransactionById(transactionId), TransactionDTO.class);
+    }
+
+    @Operation(summary = "Find all transactions")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved all transactions"),
+            @ApiResponse(responseCode = "404", description = "Transactions not found")
+    })
+    @GetMapping
+    public List<TransactionDTO> findTransactions(){
+        return mapper.toCollection(transactionRepository.findAll(), TransactionDTO.class);
     }
 }
