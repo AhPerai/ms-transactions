@@ -1,16 +1,28 @@
 package com.ms.transactions.domain.transactionStrategy;
 
+import com.ms.transactions.domain.adapter.service.WalletApi;
 import com.ms.transactions.domain.enums.TransactionType;
 import com.ms.transactions.domain.transactionStrategy.Strategies.*;
+
+import static com.ms.transactions.domain.enums.TransactionType.*;
 
 public class TransactionStrategyFactory {
 
     public static TransactionTypeStrategy getTransactionValidator(TransactionType type) {
+
         switch (type) {
-            case DEPOSIT -> new DepositStrategy();
-            case WITHDRAWAL -> new WithdrawStrategy();
-            case BET_PLACEMENT -> new BetPlacementStrategy();
-            case BET_WINNINGS -> new BetWinningsStrategy();
+            case DEPOSIT -> {
+                return new DepositStrategy(new WalletApi());
+            }
+            case WITHDRAWAL -> {
+                return new WithdrawStrategy(new WalletApi());
+            }
+            case BET_PLACEMENT -> {
+                return new BetPlacementStrategy();
+            }
+            case BET_WINNINGS -> {
+                return new BetWinningsStrategy();
+            }
         }
         return null;
     }
